@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>じゃんけん</title>
+</head>
+
+<body>
+    <form method="get" action="/janken">
+        <input type="radio" name="hand" id="gu" value="グー">
+        <label for="gu">グー</label><br>
+
+        <input type="radio" name="hand" id="tyoki" value="チョキ">
+        <label for="tyoki">チョキ</label><br>
+
+        <input type="radio" name="hand" id="pa" value="パー">
+        <label for="pa">パー</label><br>
+
+        <!-- スコア受け渡し用（初回は0） -->
+        <input type="hidden" name="win" value="0">
+        <input type="hidden" name="total" value="0">
+
+        <input type="submit" value="送信">
+    </form>
+    </body>
+
+</html>
