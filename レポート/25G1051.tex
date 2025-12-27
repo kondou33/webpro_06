@@ -1,0 +1,158 @@
+\documentclass[uplatex,dvipdfmx,11pt,a4paper]{jsarticle}
+
+% --- 基本パッケージ ---
+\usepackage[uplatex,deluxe]{otf} 
+\usepackage[noalphabet]{pxchfon} 
+\usepackage{amsmath, amssymb}
+\usepackage[fleqn,tbtags]{mathtools} 
+\usepackage{url}
+\usepackage{float} 
+\usepackage[margin=25mm]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{ascmac}
+\usepackage{xurl}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper} 
+
+% --- 文書情報 ---
+\title{開発者用仕様書}
+\author{25G1051 近藤巧望}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\part{開発者用仕様書}
+\section{概要}
+本システムは，ゲーム「原神」における「星5キャラクター所持数一覧」「星4・5武器所持数一覧」「スコア40以上の聖遺物一覧」を
+それぞれ管理するためのシステムである．各項目の新規登録，詳細表示，編集，および削除機能を提供する．
+特に，聖遺物一覧のシステムに関しては，聖遺物セットごとに部位を管理し，セット効果の発動状況を考慮した上で，
+聖遺物スコアが40以上のものを一覧表示する機能を備えている．そのため，本仕様書では，聖遺物セットの管理機能と所持聖遺物の管理機能を分けて記載する．
+
+\section{HTTPメソッドとリソース名一覧}
+
+\subsection{星5キャラクター所持数一覧}
+\begin{tabularx}{\textwidth}{lllX}
+\toprule
+メソッド & リソース名 & 機能概要 \\
+\midrule
+GET & \textsf{/chara} & 星5キャラクター一覧表示 \\
+GET & \textsf{/chara/create} & 新規登録フォーム表示 \\
+POST & \textsf{/chara\_add} & 新規追加処理 \\
+GET & \textsf{/chara/:id} & 詳細表示 \\
+GET & \textsf{/chara/edit/:id} & 編集フォーム表示 \\
+POST & \textsf{/chara\_update/:id} & 編集処理 \\
+POST & \textsf{/chara\_delete/:id} & 削除処理 \\
+\bottomrule
+\end{tabularx}
+
+\subsection{星4・5武器所持数一覧}
+\begin{tabularx}{\textwidth}{lllX}
+\toprule
+メソッド & リソース名 & 機能概要 \\
+\midrule
+GET & \textsf{/weapon} & 星4・5武器一覧表示 \\
+GET & \textsf{/weapon/create} & 新規登録フォーム表示 \\
+POST & \textsf{/weapon\_add} & 新規追加処理 \\
+GET & \textsf{/weapon/:id} & 詳細表示 \\
+GET & \textsf{/weapon/edit/:id} & 編集フォーム表示 \\
+POST & \textsf{/weapon\_update/:id} & 編集処理 \\
+POST & \textsf{/weapon\_delete/:id} & 削除処理 \\
+\bottomrule
+\end{tabularx}
+
+\subsection{スコア40以上の聖遺物一覧}
+
+\subsubsection{聖遺物セットの管理}
+\begin{tabularx}{\textwidth}{lllX}
+\toprule
+メソッド & リソース名 & 機能概要 \\
+\midrule
+GET & \textsf{/artifact} & 聖遺物セット一覧表示 \\
+GET & \textsf{/artifact/set\_create} & セット名称入力画面表示 \\
+POST & \textsf{/artifact/set\_add} & セット追加処理 \\
+POST & \textsf{/artifact/set\_delete/:set\_id} & セット削除処理 \\
+\bottomrule
+\end{tabularx}
+
+\subsubsection{所持聖遺物の管理}
+\begin{tabularx}{\textwidth}{lllX}
+\toprule
+メソッド & リソース名 & 機能概要 \\
+\midrule
+GET & \textsf{/artifact/set/:set\_id} & 部位一覧表示 \\
+GET & \textsf{/artifact/item/create/:set\_id} & 部位入力画面表示 \\
+POST & \textsf{/artifact/item\_add} & 部位追加処理 \\
+GET & \textsf{/artifact/item/:id} & 詳細表示 \\
+GET & \textsf{/artifact/item/edit/:id} & 編集画面表示 \\
+POST & \textsf{/artifact/item\_update/:id} & 更新処理 \\
+POST & \textsf{/artifact/item\_delete/:id} & 削除処理 \\
+\bottomrule
+\end{tabularx}
+
+\section{データ構造}
+本システムは「管理番号」および「名称」をキーとして管理を行う．詳細画面では以下のデータ項目を保持する．
+
+\subsection{星5キャラクターデータ}
+\begin{itemize}[noitemsep]
+    \item \textsf{chara\_id} (数値)： 管理番号
+    \item \textsf{chara\_name} (文字列)： キャラ名
+    \item \textsf{element} (文字列)： 元素
+    \item \textsf{limited\_chara} (文字列)： 限定/恒常の区分
+    \item \textsf{levelbonus\_name} (文字列)： 突破ボーナス項目名
+    \item \textsf{levelbonus\_value} (数値)： 突破ボーナス値
+    \item \textsf{weapon\_type} (文字列)： 武器種
+    \item \textsf{level} (数値)： キャラレベル
+    \item \textsf{nomal\_talent\_level} (数値)： 通常攻撃天賦レベル
+    \item \textsf{skill\_talent\_level} (数値)： 元素スキル天賦レベル
+    \item \textsf{burst\_talent\_level} (数値)： 元素爆発天賦レベル
+    \item \textsf{role} (文字列)： 役割（アタッカー/サポーター等）
+\end{itemize}
+
+\subsection{星4・5武器データ}
+\begin{itemize}[noitemsep]
+    \item \textsf{weapon\_id} (数値)： 管理番号
+    \item \texttt{weapon\_name} (文字列)： 武器名
+    \item \textsf{weapon\_type} (文字列)： 武器種
+    \item \textsf{limited} (文字列)： 限定/恒常の区分
+    \item \textsf{rank\_level} (数値)： レアリティ（4または5）
+    \item \textsf{level} (数値)： レベル
+    \item \textsf{base\_attack} (数値)： 基礎攻撃力
+    \item \textsf{sub\_stat} (文字列)： サブステータス項目名
+    \item \textsf{sub\_stat\_value} (数値)： サブステータス値
+    \item \textsf{passive\_name} (文字列)： 武器効果説明文
+    \item \textsf{refinement\_level} (数値)： 精錬ランク（1--5）
+    \item \textsf{motif} (文字列)： モチーフ対象キャラ名
+\end{itemize}
+
+\subsection{聖遺物データ}
+\subsubsection{聖遺物セットデータ}
+\begin{itemize}[noitemsep]
+    \item \textsf{artifact\_set\_id} (数値)： セットID
+    \item \textsf{artifact\_set\_name} (文字列)： セット名
+    \item \textsf{two\_piece\_effect} (文字列)： 2セット効果説明
+    \item \textsf{four\_piece\_effect} (文字列)： 4セット効果説明
+\end{itemize}
+
+\subsubsection{所持聖遺物データ}
+\begin{itemize}[noitemsep]
+    \item \textsf{artifact\_id} (数値)： 管理番号
+    \item \textsf{artifact\_name} (文字列)： 聖遺物名
+    \item \textsf{position} (文字列)： 部位
+    \item \textsf{set\_effect} (文字列)： 発動セット効果
+    \item \textsf{main\_stat} (文字列)： メインステータス項目
+    \item \textsf{main\_stat\_value} (数値)： メインステータス値
+    \item \textsf{score} (数値)： 聖遺物スコア．計算式は以下の通りとする：
+\end{itemize}
+
+聖遺物スコアとは，キャラクターの火力向上に寄与するステータスを数値化したものであり，以下の式で算出される．
+各ステータスの重み付けは，ゲーム内での効果を考慮して一般的にプレイヤー間で合意されている値を使用する．
+\begin{equation}
+\text{Score} = (\text{会心率} \times 2) + (\text{会心ダメージ} \times 1) + (\text{攻撃力\%} \times 1) + (\text{元素熟知} \times 0.25)
+\end{equation}
+
+\end{document}

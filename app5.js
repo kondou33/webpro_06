@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const app = express();
 
@@ -23,6 +24,15 @@ let station2 = [
   { id: 5, code: "JE12", name: "新習志野駅", change: "", passengers: 11655, distance: 28.3 },
   { id: 6, code: "JE17", name: "千葉みなと駅", change: "千葉都市モノレール", passengers: 16602, distance: 39.0 },
   { id: 7, code: "JE18", name: "蘇我駅", change: "内房線，外房線", passengers: 31328, distance: 43.0 },
+];
+
+// キャラクター情報の配列
+let character = [
+  { chara_id: 1, chara_name: "刻晴", element: "雷", limited_chara: "恒常", levelbonus_name: "会心ダメージ", levelbonus_value: 38.4, weapon_type: "片手剣", level: 60, nomal_talent_level: 6, skill_talent_level: 6, burst_talent_level: 6, role: "メインアタッカー", totu: 1},
+  { chara_id: 2, chara_name: "七七", element: "氷", limited_chara: "恒常", levelbonus_name: "与える治癒効果", levelbonus_value: 22.2, weapon_type: "片手剣", level: 80, nomal_talent_level: 8, skill_talent_level: 8, burst_talent_level: 8, role: "ヒーラー" , totu: 3},
+  { chara_id: 3, chara_name: "フリーナ", element: "水", limited_chara: "限定", levelbonus_name: "会心率", levelbonus_value: 19.2, weapon_type: "片手剣", level: 90, nomal_talent_level: 4, skill_talent_level: 10, burst_talent_level: 9, role: "サブアタッカー/バッファー" , totu: 0},
+  { chara_id: 4, chara_name: "ディルック", element: "炎", limited_chara: "恒常", levelbonus_name: "会心率", levelbonus_value: 19.2, weapon_type: "両手剣", level: 70, nomal_talent_level: 7, skill_talent_level: 7, burst_talent_level: 7, role: "メインアタッカー" , totu: 2},
+  { chara_id: 5, chara_name: "シグウィン", element: "水", limited_chara: "限定", levelbonus_name: "HP", levelbonus_value: 28.8, weapon_type: "弓", level: 90, nomal_talent_level: 10, skill_talent_level: 13, burst_talent_level: 13, role: "ヒーラー/サポーター/サブアタッカー" ,totu: 6},
 ];
 
 app.get("/keiyo2", (req, res) => {
@@ -191,6 +201,79 @@ app.get("/keiyo_add2", (req, res) => {
   let newdata = { id: id, code: code, name: name };
   station2.push(newdata);
   res.render('keiyo2', { data: station2 });
+});
+
+
+
+
+// キャラクター一覧表示
+app.get("/chara", (req, res) => {
+  res.render('chara', {data: character});
+});
+
+// キャラクター新規作成ページへリダイレクト
+app.get("/chara/create", (req, res) => {
+  res.redirect('/public/chara_new.html');
+});
+
+// キャラクター詳細表示
+app.get("/chara/:id", (req, res) => {
+  const id = req.params.id;
+  const detail = character.find(chara => chara.chara_id == id);
+  res.render('chara_detail', { data: detail });
+});
+
+// キャラクター新規作成処理
+app.post("/chara_add", (req, res) => {
+  const id = character.length + 1;
+  const name = req.body.chara_name;
+  const element = req.body.element;
+  const limited_chara = req.body.limited_chara;
+  const levelbonus_name = req.body.levelbonus_name;
+  const levelbonus_value = req.body.levelbonus_value;
+  const weapon_type = req.body.weapon_type;
+  const level = req.body.level;
+  const nomal_talent_level = req.body.nomal_talent_level;
+  const skill_talent_level = req.body.skill_talent_level;
+  const burst_talent_level = req.body.burst_talent_level;
+  const role = req.body.role;
+  const totu = req.body.totu;
+  let newdata = { chara_id: id, chara_name: name, element: element, limited_chara: limited_chara, levelbonus_name: levelbonus_name, levelbonus_value: levelbonus_value, weapon_type: weapon_type, level: level, nomal_talent_level: nomal_talent_level, skill_talent_level: skill_talent_level, burst_talent_level: burst_talent_level, role: role, totu: totu };
+  character.push(newdata);
+  res.redirect('/chara');
+});
+
+// キャラクター編集ページ表示
+app.get("/chara/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const detail = character.find(chara => chara.chara_id == id);
+  res.render('chara_edit', { data: detail });
+});
+
+// キャラクター更新処理
+app.post("/chara_update/:id", (req, res) => {
+  const id = req.params.id;
+  const chara = character.find(chara => chara.chara_id == id);
+  chara.chara_name =  req.body.chara_name;
+  chara.element =  req.body.element;
+  chara.limited_chara =  req.body.limited_chara;
+  chara.levelbonus_name =  req.body.levelbonus_name;
+  chara.levelbonus_value =  req.body.levelbonus_value;
+  chara.weapon_type =  req.body.weapon_type;
+  chara.level =  req.body.level;
+  chara.nomal_talent_level =  req.body.nomal_talent_level;
+  chara.skill_talent_level =  req.body.skill_talent_level;
+  chara.burst_talent_level =  req.body.burst_talent_level;
+  chara.role =  req.body.role;
+  chara.totu =  req.body.totu;
+  res.redirect('/chara/:id');
+});
+
+// キャラクター削除処理
+app.post("/chara_delete/:id", (req, res) => {
+  const id = req.params.id;
+  character = character.filter(chara => chara.chara_id != id);
+  res.redirect('/chara');
 });
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

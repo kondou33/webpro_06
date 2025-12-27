@@ -1,0 +1,88 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        <%= data.chara_name %>
+    </title>
+</head>
+
+<body>
+    <h2>
+        <%= data.chara_name %>の編集
+    </h2>
+    <form action="/chara_update/<%= data.chara_id %>" method="POST">
+        <table>
+            <tr>
+                <th><label for="chara_name">キャラクター名</label></th>
+                <td><input type="text" name="chara_name" value="<%= data.chara_name %>"required></td>
+            </tr>
+            <tr>
+                <th><label for="element">元素属性</label></th>
+                <td>
+                    <select name="element" required>
+                        <option value="炎" <% if(data.element=='炎' ) { %> selected <% } %>>炎</option>
+                        <option value="水" <% if(data.element=='水' ) { %> selected <% } %>>水</option>
+                        <option value="風" <% if(data.element=='風' ) { %> selected <% } %>>風</option>
+                        <option value="雷" <% if(data.element=='雷' ) { %> selected <% } %>>雷</option>
+                        <option value="草" <% if(data.element=='草' ) { %> selected <% } %>>草</option>
+                        <option value="氷" <% if(data.element=='氷' ) { %> selected <% } %>>氷</option>
+                        <option value="岩" <% if(data.element=='岩' ) { %> selected <% } %>>岩</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="limited_chara">限定/恒常の区分</label></th>
+                <td><input type="text" name="limited_chara" value="<%= data.limited_chara %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="levelbonus_name">突破ボーナス項目名</label></th>
+                <td><input type="text" name="levelbonus_name" value="<%= data.levelbonus_name %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="levelbonus_value">突破ボーナス値</label></th>
+                <td><input type="number" name="levelbonus_value" value="<%= data.levelbonus_value %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="weapon_type">武器種別</label></th>
+                <td><select name="weapon_type" value="<%= data.weapon_type %>" required>
+                        <option value="片手剣" <% if(data.weapon_type=='片手剣' ) { %> selected <% } %>>片手剣</option>
+                        <option value="両手剣" <% if(data.weapon_type=='両手剣' ) { %> selected <% } %>>両手剣</option>
+                        <option value="長柄武器" <% if(data.weapon_type=='長柄武器' ) { %> selected <% } %>>長柄武器</option>
+                        <option value="法器" <% if(data.weapon_type=='法器' ) { %> selected <% } %>>法器</option>
+                        <option value="弓" <% if(data.weapon_type=='弓' ) { %> selected <% } %>>弓</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="level">レベル</label></th>
+                <td><input type="number" name="level" value="<%= data.level %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="nomal_talent_level">通常攻撃天賦レベル</label></th>
+                <td><input type="number" name="nomal_talent_level" value="<%= data.nomal_talent_level %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="skill_talent_level">スキル天賦レベル</label></th>
+                <td><input type="number" name="skill_talent_level" value="<%= data.skill_talent_level %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="burst_talent_level">元素爆発天賦レベル</label></th>
+                <td><input type="number" name="burst_talent_level" value="<%= data.burst_talent_level %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="role">役割(複数ある場合は/で区切る)</label></th>
+                <td><input type="text" name="role" value="<%= data.role %>" required></td>
+            <tr>
+                <th><label for="totu">命の星座凸数</label></th>
+                <td><input type="number" name="totu" value="<%= data.totu %>" required></td>
+            </tr>
+        </table>
+        <button type="submit">登録する</button>
+    </form>
+    <br>
+    <a href="/chara/">キャラクター一覧に戻る</a>
+</body>
+
+</html>

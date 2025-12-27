@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>星5キャラクター追加画面</title>
+</head>
+
+<body>
+    <form action="/chara_add" method="POST">
+        <table>
+            <tr>
+                <th><label for="chara_name">キャラクター名</label></th>
+                <td><input type="text" name="chara_name" required></td>
+            </tr>
+            <tr>
+                <th><label for="element">元素属性</label></th>
+                <td><select name="element" required>
+                    <option value="炎">炎</option>
+                    <option value="水">水</option>
+                    <option value="風">風</option>
+                    <option value="雷">雷</option>
+                    <option value="草">草</option>
+                    <option value="氷">氷</option>
+                    <option value="岩">岩</option>
+                </select></td>
+            </tr>
+            <tr>
+                <th><label for="limited_chara">限定/恒常の区分</label></th>
+                <td><input type="text" name="limited_chara" required></td>
+            </tr>
+            <tr>
+                <th><label for="levelbonus_name">突破ボーナス項目名</label></th>
+                <td><input type="text" name="levelbonus_name" required></td>
+            </tr>
+            <tr>
+                <th><label for="levelbonus_value">突破ボーナス値</label></th>
+                <td><input type="number" name="levelbonus_value" required></td>
+            </tr>
+            <tr>
+                <th><label for="weapon_type">武器種別</label></th>
+                <td><select name="weapon_type" required>
+                    <option value="片手剣">片手剣</option>
+                    <option value="両手剣">両手剣</option>
+                    <option value="長柄武器">長柄武器</option>
+                    <option value="法器">法器</option>
+                    <option value="弓">弓</option>
+                </select></td>
+            </tr>
+            <tr>
+                <th><label for="level">レベル</label></th>
+                <td><input type="number" name="level" required></td>
+            </tr>
+            <tr>
+                <th><label for="nomal_talent_level">通常攻撃天賦レベル</label></th>
+                <td><input type="number" name="nomal_talent_level" required></td>
+            </tr>
+            <tr>
+                <th><label for="skill_talent_level">スキル天賦レベル</label></th>
+                <td><input type="number" name="skill_talent_level" required></td>
+            </tr>
+            <tr>
+                <th><label for="burst_talent_level">元素爆発天賦レベル</label></th>
+                <td><input type="number" name="burst_talent_level" required></td>
+            </tr>
+            <tr>
+                <th><label for="role">役割(複数ある場合は/で区切る)</label></th>
+                <td><input type="text" name="role" required></td>
+            <tr>
+                <th><label for="totu">命の星座凸数</label></th>
+                <td><input type="number" name="totu" required></td>
+            </tr>
+        </table>
+        <button type="submit">登録する</button>
+    </form>
+</body>
+
+</html>

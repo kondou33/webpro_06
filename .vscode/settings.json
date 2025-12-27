@@ -1,0 +1,32 @@
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "uplatex",
+      "command": "/usr/local/bin/uplatex",
+      "args": [
+        "-file-line-error",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "dvipdfmx",
+      "command": "/usr/local/bin/dvipdfmx",
+      "args": [
+        "%DOCFILE%.dvi"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "uplatex x2 -> dvipdfmx",
+      "tools": [
+        "uplatex",
+        "uplatex",
+        "dvipdfmx"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "uplatex x2 -> dvipdfmx"
+}

@@ -1,0 +1,59 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>原神所持星5キャラクター一覧</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>キャラクターの詳細</h2>
+    <table>
+        <tr>
+            <th>キャラクターID</th>
+            <th>キャラクター名</th>
+            <th>元素属性</th>
+            <th>武器種別</th>
+            <th>命の星座凸数</th>
+        </tr>
+        <% for( let row of data ) { %>
+            <tr>
+                <td>
+                    <%= row.chara_id %>
+                </td>
+
+                <td>
+                    <a href="/chara/<%= row.chara_id %>">
+                    <%= row.chara_name %>
+                </td>
+
+                <td>
+                    <%= row.element %>
+                </td>
+
+                <td>
+                    <%= row.weapon_type %>
+                </td>
+
+                <td>
+                    <%= row.totu %>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+</body>
+<a href="/chara/create">追加</a>
+</html>
