@@ -1,0 +1,76 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        <%= data.weapon_name %>
+    </title>
+</head>
+
+<body>
+    <h2>
+        <%= data.weapon_name %>の編集
+    </h2>
+    <form action="/weapon_update/<%= data.weapon_id %>" method="POST">
+        <table>
+            <tr>
+                <th><label for="weapon_name">武器名</label></th>
+                <td><input type="text" name="weapon_name" value="<%= data.weapon_name %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="weapon_type">武器種別</label></th>
+                <td><select name="weapon_type" value="<%= data.weapon_type %>" required>
+                        <option value="片手剣" <% if(data.weapon_type=='片手剣' ) { %> selected <% } %>>片手剣</option>
+                        <option value="両手剣" <% if(data.weapon_type=='両手剣' ) { %> selected <% } %>>両手剣</option>
+                        <option value="長柄武器" <% if(data.weapon_type=='長柄武器' ) { %> selected <% } %>>長柄武器</option>
+                        <option value="法器" <% if(data.weapon_type=='法器' ) { %> selected <% } %>>法器</option>
+                        <option value="弓" <% if(data.weapon_type=='弓' ) { %> selected <% } %>>弓</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="limited">限定/恒常の区分</label></th>
+                <td><input type="radio" name="limited" value="限定" <% if(data.limited=='限定' ) { %> checked <% } %>>限定
+                    <input type="radio" name="limited" value="恒常" <% if(data.limited=='恒常' ) { %> checked <% } %>>恒常
+                </td>
+            </tr>
+            <tr>
+                <th><label for="rank_level">レアリティ</label></th>
+                <td><input type="number" name="rank_level" value="<%= data.rank_level %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="level">レベル</label></th>
+                <td><input type="number" name="level" value="<%= data.level %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="base_attack">基礎攻撃力</label></th>
+                <td><input type="number" name="base_attack" value="<%= data.base_attack %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat">サブステータス項目名</label></th>
+                <td><input type="text" name="sub_stat" value="<%= data.sub_stat %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat_value">サブステータス値</label></th>
+                <td><input type="number" name="sub_stat_value" value="<%= data.sub_stat_value %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="passive_name">武器効果説明</label></th>
+                <td><input type="text" name="passive_name" value="<%= data.passive_name %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="refinement_level">精錬ランク</label></th>
+                <td><input type="number" name="refinement_level" value="<%= data.refinement_level %>" required></td>
+            <tr>
+                <th><label for="motif">モチーフ対象キャラ(いなければ「なし」)</label></th>
+                <td><input type="text" name="motif" value="<%= data.motif %>" required></td>
+            </tr>
+        </table>
+        <button type="submit">登録する</button>
+    </form>
+    <br>
+    <a href="/weapon/">キャラクター一覧に戻る</a>
+</body>
+
+</html>

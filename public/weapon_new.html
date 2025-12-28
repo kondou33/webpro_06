@@ -1,0 +1,75 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+    星4・星5武器追加画面
+    </title>
+</head>
+
+<body>
+    <form action="/weapon_add" method="POST">
+        <table>
+            <tr>
+                <th><label for="weapon_name">武器名</label></th>
+                <td><input type="text" name="weapon_name"  required></td>
+            </tr>
+            <tr>
+                <th><label for="weapon_type">武器種別</label></th>
+                <td><select name="weapon_type"  required>
+                        <option value="片手剣" >片手剣</option>
+                        <option value="両手剣" >両手剣</option>
+                        <option value="長柄武器" >長柄武器</option>
+                        <option value="法器" >法器</option>
+                        <option value="弓" >弓</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="limited">限定/恒常の区分</label></th>
+                <td>
+                    <input type="radio" name="limited" id="radio1" value="限定" >
+                    <label for="radio1">限定</label>
+                    <input type="radio" name="limited" id="radio2" value="恒常" >
+                    <label for="radio2">恒常</label>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="rank_level">レアリティ</label></th>
+                <td><input type="number" name="rank_level" required></td>
+            </tr>
+            <tr>
+                <th><label for="level">レベル</label></th>
+                <td><input type="number" name="level" required></td>
+            </tr>
+            <tr>
+                <th><label for="base_attack">基礎攻撃力</label></th>
+                <td><input type="number" name="base_attack" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat">サブステータス項目名</label></th>
+                <td><input type="text" name="sub_stat" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat_value">サブステータス値</label></th>
+                <td><input type="number" name="sub_stat_value" required></td>
+            </tr>
+            <tr>
+                <th><label for="passive_name">武器効果説明</label></th>
+                <td><input type="text" name="passive_name"  required></td>
+            </tr>
+            <tr>
+                <th><label for="refinement_level">精錬ランク</label></th>
+                <td><input type="number" name="refinement_level"  required></td>
+            <tr>
+                <th><label for="motif">モチーフ対象キャラ(いなければ「なし」)</label></th>
+                <td><input type="text" name="motif"  required></td>
+            </tr>
+        </table>
+        <button type="submit">登録する</button>
+    </form>
+    <br>
+</body>
+
+</html>

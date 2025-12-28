@@ -1,3 +1,4 @@
+"use strict";
 <!Doctype html>
 <html>
 
@@ -34,7 +35,9 @@
             </tr>
             <tr>
                 <th><label for="limited_chara">限定/恒常の区分</label></th>
-                <td><input type="text" name="limited_chara" value="<%= data.limited_chara %>" required></td>
+                <td><input type="radio" name="limited_chara" value="限定" <% if(data.limited_chara=='限定' ) { %> checked <% } %>>限定
+                    <input type="radio" name="limited_chara" value="恒常" <% if(data.limited_chara=='恒常' ) { %> checked <% } %>>恒常
+                </td>
             </tr>
             <tr>
                 <th><label for="levelbonus_name">突破ボーナス項目名</label></th>

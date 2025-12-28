@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>原神所持星5キャラクター一覧</title>
+    <title>原神所持星4・5武器一覧</title>
     <style>
         table,
         th,
@@ -11,7 +11,7 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
-    
+
         th,
         td {
             padding: 10px;
@@ -20,28 +20,23 @@
 </head>
 
 <body>
-    <h2>キャラクターの詳細一覧</h2>
+    <h2>武器の詳細</h2>
     <table>
         <tr>
-            <th>キャラクターID</th>
-            <th>キャラクター名</th>
-            <th>元素属性</th>
-            <th>武器種別</th>
-            <th>命の星座凸数</th>
+            <th>武器ID</th>
+            <th>武器名</th>
+            <th>武器タイプ</th>
+            <th>レアリティ</th>
         </tr>
         <% for( let row of data ) { %>
             <tr>
                 <td>
-                    <%= row.chara_id %>
+                    <%= row.weapon_id %>
                 </td>
 
                 <td>
-                    <a href="/chara/<%= row.chara_id %>">
-                    <%= row.chara_name %>
-                </td>
-
-                <td>
-                    <%= row.element %>
+                    <a href="/weapon/<%= row.weapon_id %>">
+                        <%= row.weapon_name %>
                 </td>
 
                 <td>
@@ -49,11 +44,12 @@
                 </td>
 
                 <td>
-                    <%= row.totu %>
+                    <%= row.rank_level %>
                 </td>
             </tr>
             <% } %>
     </table>
 </body>
-<a href="/chara/create">追加</a>
+<a href="/weapon/create">追加</a>
+
 </html>

@@ -111,6 +111,7 @@ POST & \textsf{/artifact/item\_delete/:id} & 削除処理 \\
     \item \textsf{skill\_talent\_level} (数値)： 元素スキル天賦レベル
     \item \textsf{burst\_talent\_level} (数値)： 元素爆発天賦レベル
     \item \textsf{role} (文字列)： 役割（アタッカー/サポーター等）
+    \item \textsf{totu} (数値)： 命の星座凸数
 \end{itemize}
 
 \subsection{星4・5武器データ}
@@ -146,13 +147,24 @@ POST & \textsf{/artifact/item\_delete/:id} & 削除処理 \\
     \item \textsf{set\_effect} (文字列)： 発動セット効果
     \item \textsf{main\_stat} (文字列)： メインステータス項目
     \item \textsf{main\_stat\_value} (数値)： メインステータス値
-    \item \textsf{score} (数値)： 聖遺物スコア．計算式は以下の通りとする：
+    \item \textsf{sub\_stat1} (文字列)： サブステータス1項目
+    \item \textsf{sub\_stat1\_value} (数値)： サブステータス1値
+    \item \textsf{sub\_stat2} (文字列)： サブステータス2項目
+    \item \textsf{sub\_stat2\_value} (数値)： サブステータス2値
+    \item \textsf{sub\_stat3} (文字列)： サブステータス3項目
+    \item \textsf{sub\_stat3\_value} (数値)： サブステータス3値
+    \item \textsf{sub\_stat4} (文字列)： サブステータス4項目
+    \item \textsf{sub\_stat4\_value} (数値)： サブステータス4値
+    \item \textsf{score} (数値)： 聖遺物スコア．計算式は式(\ref{eq:artifact_score})参照．
 \end{itemize}
 
 聖遺物スコアとは，キャラクターの火力向上に寄与するステータスを数値化したものであり，以下の式で算出される．
-各ステータスの重み付けは，ゲーム内での効果を考慮して一般的にプレイヤー間で合意されている値を使用する．
+聖遺物を使用するキャラクターのビルドに応じて，重視するステータスの重み付けが異なるため，
+攻撃力，元素チャージ効率，HP，防御力などのステータスは考慮せず，
+本システムでは会心率と会心ダメージに着目し，会心スコアとして定義している．
 \begin{equation}
-\text{Score} = (\text{会心率} \times 2) + (\text{会心ダメージ} \times 1) + (\text{攻撃力\%} \times 1) + (\text{元素熟知} \times 0.25)
+    \text{Score} = (\text{会心率} \times 2) + (\text{会心ダメージ} \times 1)
+    \label{eq:artifact_score}
 \end{equation}
 
 \end{document}

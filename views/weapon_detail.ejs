@@ -1,0 +1,114 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        武器詳細
+    </title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+        <%= data.weapon_name %>の詳細
+    </h2>
+    <table>
+        <tr>
+            <th>項目</th>
+            <th>データ</th>
+        </tr>
+        <tr>
+            <td>登録ID</td>
+            <td>
+                <%= data.weapon_id %>
+            </td>
+        </tr>
+        <tr>
+            <td>武器名</td>
+            <td>
+                <%= data.weapon_name %>
+            </td>
+        </tr>
+        <tr>
+            <td>武器種</td>
+            <td>
+                <%= data.weapon_type %>
+            </td>
+        </tr>
+        <tr>
+            <td>限定/恒常の区分</td>
+            <td>
+                <%= data.limited %>
+            </td>
+        </tr>
+        <tr>
+            <td>レアリティ</td>
+            <td>
+                <%= data.rank_level %>
+            </td>
+        </tr>
+        <tr>
+            <td>武器レベル</td>
+            <td>
+                <%= data.level %>
+            </td>
+        </tr>
+        <tr>
+            <td>基礎攻撃力</td>
+            <td>
+                <%= data.base_attack %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス項目名</td>
+            <td>
+                <%= data.sub_stat %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス値</td>
+            <td>
+                <%= data.sub_stat_value %>
+            </td>
+        </tr>
+        <tr>
+            <td>武器効果説明</td>
+            <td>
+                <%= data.passive_name %>
+            </td>
+        </tr>
+        <tr>
+            <td>精錬ランク</td>
+            <td>
+                <%= data.refinement_level %>
+            </td>
+        </tr>
+        <tr>
+            <td>モチーフ対象キャラ名</td>
+            <td>
+                <%= data.motif %>
+            </td>
+        </tr>
+
+    </table>
+    <a href="/weapon/edit/<%= data.weapon_id %>">編集</a>
+    <a href="/weapon">キャラクター一覧へ戻る</a>
+    <form action="/weapon_delete/<%= data.weapon_id %>" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('本当に削除しますか？');">削除</button>
+    </form>
+</body>
+
+</html>
