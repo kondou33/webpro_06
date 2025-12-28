@@ -1,0 +1,55 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>原神聖遺物一覧</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>所持中である<%= set_name %>の一覧</h2>
+    <table>
+        <tr>
+            <th>聖遺物ID</th>
+            <th>部位</th>
+            <th>メインステータス</th>
+            <th>会心スコア</th>
+        </tr>
+        <% for( let row of data ) { %>
+            <tr>
+                <td>
+                    <%= row.artifact_id %>
+                </td>
+                <td>
+                    <a href="/artifact/item/<%= row.artifact_id %>">
+                        <%= row.slot %>
+                </td>
+
+                <td>
+                    <%= row.main_stat %>
+                </td>
+                <td>
+                    <%= row.score %>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+</body>
+<a href="/artifact/item_create/<%= set_id %>">聖遺物追加</a>
+<br>
+<a href="/artifact">聖遺物セット一覧に戻る</a>
+
+</html>

@@ -1,0 +1,59 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>原神聖遺物セット一覧</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>聖遺物セット一覧</h2>
+    <table>
+        <tr>
+            <th>聖遺物セットID</th>
+            <th>聖遺物セット名</th>
+            <th>2セット効果</th>
+            <th>4セット効果</th>
+        </tr>
+        <% for( let row of data ) { %>
+            <tr>
+                <td>
+                    <%= row.set_id %>
+                </td>
+
+                <td>
+                    <a href="/artifact/set/<%= row.set_id %>">
+                        <%= row.set_name %>
+                </td>
+
+                <td>
+                    <%= row.set2_effect %>
+                </td>
+                <td>
+                    <%= row.set4_effect %>
+                </td>
+                <td>
+                    <form action="/artifact/set_delete/<%= row.set_id %>" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-delete" onclick="return confirm('このセットと登録されている全部位を削除しますか？');">削除</button>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+</body>
+<a href="/artifact/set_create">追加</a>
+
+</html>

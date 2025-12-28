@@ -1,0 +1,114 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        聖遺物の詳細
+    </title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+        <%= set_name %>(<%= data.slot %>)の詳細
+    </h2>
+    <table>
+        <tr>
+            <th>項目</th>
+            <th>データ</th>
+        </tr>
+        <tr>
+            <td>登録ID</td>
+            <td>
+                <%= data.artifact_id %>
+            </td>
+        </tr>
+        <tr>
+            <td>メインステータス項目</td>
+            <td>
+                <%= data.main_stat %>
+            </td>
+        </tr>
+        <tr>
+            <td>メインステータス値</td>
+            <td>
+                <%= data.main_stat_value %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス1項目</td>
+            <td>
+                <%= data.sub_stat1 %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス1値</td>
+            <td>
+                <%= data.sub_stat1_value %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス2項目</td>
+            <td>
+                <%= data.sub_stat2 %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス2値</td>
+            <td>
+                <%= data.sub_stat2_value %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス3項目</td>
+            <td>
+                <%= data.sub_stat3 %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス3値</td>
+            <td>
+                <%= data.sub_stat3_value %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス4項目</td>
+            <td>
+                <%= data.sub_stat4 %>
+            </td>
+        </tr>
+        <tr>
+            <td>サブステータス4値</td>
+            <td>
+                <%= data.sub_stat4_value %>
+            </td>
+        </tr>
+        <tr>
+            <td>会心スコア</td>
+            <td>
+                <%= data.score %>
+            </td>
+        </tr>
+
+    </table>
+    <a href="/artifact/item/edit/<%= data.artifact_id %>">編集</a>
+    <a href="/artifact/set/<%= data.set_id %>">聖遺物一覧(一個前)に戻る</a>
+    <form action="/artifact/item_delete/<%= data.artifact_id %>" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('本当に削除しますか？');">削除</button>
+    </form>
+</body>
+
+</html>

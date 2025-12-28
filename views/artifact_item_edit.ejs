@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>聖遺物部位追加画面</title>
+</head>
+
+<body>
+    <form action="/artifact/item_update/<%= data.artifact_id %>" method="POST">
+        <table>
+            <tr>
+                <th><label for="data.set_id">聖遺物セットID</label>
+                <td>
+                    <%= data.set_id %>
+                </td>
+            </tr>
+            </th>
+            </tr>
+            <tr>
+                <th><label for="slot">部位</label></th>
+                <td><select name="slot" required>
+                        <option value="花" <%= data.slot === '花' ? 'selected' : '' %>>花</option>
+                        <option value="羽" <%= data.slot === '羽' ? 'selected' : '' %>>羽</option>
+                        <option value="砂時計" <%= data.slot === '砂時計' ? 'selected' : '' %>>砂時計</option>
+                        <option value="杯" <%= data.slot === '杯' ? 'selected' : '' %>>杯</option>
+                        <option value="冠" <%= data.slot === '冠' ? 'selected' : '' %>>冠</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <th><label for="main_stat">メインステータス項目名</label></th>
+                <td><input type="text" name="main_stat" value="<%= data.main_stat %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="main_stat_value">メインステータス値</label></th>
+                <td><input type="number" name="main_stat_value" value="<%= data.main_stat_value %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat1">サブステータス1項目名</label></th>
+                <td><input type="text" name="sub_stat1" value="<%= data.sub_stat1 %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat1_value">サブステータス1値</label></th>
+                <td><input type="number" name="sub_stat1_value" value="<%= data.sub_stat1_value %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat2">サブステータス2項目名</label></th>
+                <td><input type="text" name="sub_stat2" value="<%= data.sub_stat2 %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat2_value">サブステータス2値</label></th>
+                <td><input type="number" name="sub_stat2_value" value="<%= data.sub_stat2_value %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat3">サブステータス3項目名</label></th>
+                <td><input type="text" name="sub_stat3" value="<%= data.sub_stat3 %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat3_value">サブステータス3値</label></th>
+                <td><input type="number" name="sub_stat3_value" value="<%= data.sub_stat3_value %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat4">サブステータス4項目名</label></th>
+                <td><input type="text" name="sub_stat4" value="<%= data.sub_stat4 %>" required></td>
+            </tr>
+            <tr>
+                <th><label for="sub_stat4_value">サブステータス4値</label></th>
+                <td><input type="number" name="sub_stat4_value" value="<%= data.sub_stat4_value %>" required></td>
+            </tr>
+            <tr>
+                <th for="score">会心スコア</th>
+                <td>
+                    <small style="color: #666;">（計算式：会心率 × 2 + 会心ダメージ）</small><br>
+                    <input type="number" name="score" step="0.1" value ="<%= data.score %>" required>
+                </td>
+            </tr>
+        </table>
+        <button type="submit">登録する</button>
+    </form>
+    <br>
+    <a href="/artifact/set/<%= data.set_id %>">聖遺物一覧に戻る</a>
+</body>
+
+</html>

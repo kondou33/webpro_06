@@ -1,0 +1,32 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        聖遺物セット追加画面
+    </title>
+</head>
+
+<body>
+    <form action="/artifact/set_add" method="POST">
+        <table>
+            <tr>
+                <th><label for="set_name">聖遺物セット名</label></th>
+                <td><input type="text" name="set_name" required></td>
+            </tr>
+            <tr>
+                <th><label for="set2_effect">2セット効果</label></th>
+                <td><input type="text" name="set2_effect" required></td>
+            </tr>
+            <tr>
+                <th><label for="set4_effect">4セット効果</label></th>
+                <td><input type="text" name="set4_effect" required></td>
+            </tr>
+        </table>
+        <button type="submit">登録する</button>
+    </form>
+    <br>
+</body>
+
+</html>

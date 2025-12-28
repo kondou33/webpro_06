@@ -42,17 +42,17 @@ let weapon = [
   { weapon_id: 3, weapon_name: "白雨心弦", weapon_type: "弓", limited: "限定", rank_level: 5, level: 90, base_attack: 542, sub_stat: "HP", sub_stat_value: 66.2, passive_name: "装備者は「療護」効果を獲得できる。療護効果が1/2/3層ある時、HP上限がそれぞれ+12%/24%/40%。以下の状況において、装備者はそれぞれ1層の療護を獲得する。元素スキル発動時：継続時間25秒。「命の契約」数値増加時：継続時間25秒。治療実行時：継続時間20秒。装備者が待機している場合にも効果を発動できる。この療護効果の継続時間は層ごとに独立してカウントされる。その他、療護が3層の時、元素爆発の会心率+28%。この効果は療護が3層未満になった4秒後に解除される。", refinement_level: 1 , motif: "シグウィン"},
 ];
 
-//以下，まだ適当な出力データ，要調整
 // 聖遺物セット情報の配列
 let artifact_set = [
   { set_id: 1, set_name: "翠緑の影", set2_effect: "風元素ダメージ+15%", set4_effect: "拡散反応によるダメージ+60%。拡散された元素タイプを基準に、影響を受けた敵の元素耐性-40%、継続時間10秒。" },
   { set_id: 2, set_name: "絶縁の旗印", set2_effect: "元素チャージ効率+20%", set4_effect: "元素チャージ効率の25%を基準に、元素爆発ダメージがアップする。この方式でアップできるのは最大75%ダメージまで。" },
 ];
 
-// 聖遺物情報の配列
+// 聖遺物情報の配列（set_id を追加して紐付けを完成させる）
 let artifact = [
-  { artifact_id: 1, set_name: "翠緑の影", slot: "花", main_stat: "HP", main_stat_value: 4780, sub_stat1: "会心率", sub_stat1_value: 3.9, sub_stat2: "攻撃力%", sub_stat2_value: 5.8, sub_stat3: "元素熟知", sub_stat3_value: 21, sub_stat4: "会心ダメージ", sub_stat4_value: 7.0, score:  29.4 },
-  { artifact_id: 2, set_name: "絶縁の旗印", slot: "時計", main_stat: "HP%", main_stat_value: 46.6, sub_stat1: "会心率", sub_stat1_value: 14.8, sub_stat2: "会心ダメージ", sub_stat2_value: 14.8, sub_stat3: "元素チャージ効率", sub_stat3_value: 5.8, sub_stat4: "攻撃力", sub_stat4_value: 18, score: 44.4 },
+  { artifact_id: 1, set_id: 1, slot: "花", main_stat: "HP", main_stat_value: 4780, sub_stat1: "会心率", sub_stat1_value: 3.9, sub_stat2: "攻撃力%", sub_stat2_value: 5.8, sub_stat3: "元素熟知", sub_stat3_value: 21, sub_stat4: "会心ダメージ", sub_stat4_value: 7.0, score: 29.4 },
+  { artifact_id: 2, set_id: 2, slot: "時計", main_stat: "HP%", main_stat_value: 46.6, sub_stat1: "会心率", sub_stat1_value: 14.8, sub_stat2: "会心ダメージ", sub_stat2_value: 14.8, sub_stat3: "元素チャージ効率", sub_stat3_value: 5.8, sub_stat4: "攻撃力", sub_stat4_value: 18, score: 44.4 },
+  { artifact_id: 3, set_id: 2, slot: "杯", main_stat: "水元素ダメージ", main_stat_value: 46.6, sub_stat1: "会心率", sub_stat1_value: 7.0, sub_stat2: "会心ダメージ", sub_stat2_value: 29.5, sub_stat3: "攻撃力%", sub_stat3_value: 5.8, sub_stat4: "元素チャージ効率", sub_stat4_value: 5.8, score: 41.8 },
 ];
 
 app.get("/keiyo2", (req, res) => {
@@ -380,50 +380,56 @@ app.post("/weapon_delete/:id", (req, res) => {
 
 // 聖遺物セット一覧表示
 app.get("/artifact", (req, res) => {
-  res.render('artifact', { data: artifact });
+  res.render('artifact', { data: artifact_set });
 });
 
-// 聖遺物部位一覧表示
-app.get("/artifact/set/:set_id", (req, res) => {
-  res.render('artifact_set', { data: artifact_set });
-});
-
-// 聖遺物セット追加ページへリダイレクト
+// セット追加画面
 app.get("/artifact/set_create", (req, res) => {
   res.redirect('/public/artifact_set_new.html');
 });
 
 // 聖遺物セット新規作成処理
 app.post("/artifact/set_add", (req, res) => {
-  const id = artifact_set.length > 0
+  const set_id = artifact_set.length > 0
     ? Math.max(...artifact_set.map(s => s.set_id)) + 1
     : 1;
   const set_name = req.body.set_name;
   const set2_effect = req.body.set2_effect;
   const set4_effect = req.body.set4_effect;
-  let newdata = { set_id: id, set_name: set_name, set2_effect: set2_effect, set4_effect: set4_effect };
+  let newdata = { set_id: set_id, set_name: set_name, set2_effect: set2_effect, set4_effect: set4_effect };
   artifact_set.push(newdata);
-  res.redirect('/artifact/set');
+  res.redirect('/artifact');
 });
 
 // 聖遺物セット削除処理
-app.post("/artifact/set_delete/:id", (req, res) => {
-  const id = req.params.id;
-  artifact_set = artifact_set.filter(s => s.set_id != id);
-  res.redirect('/artifact/set');
+app.post("/artifact/set_delete/:set_id", (req, res) => {
+  const set_id = req.params.set_id;
+  artifact_set = artifact_set.filter(s => s.set_id != set_id);
+  res.redirect('/artifact');
 });
 
-// 聖遺物追加ページへリダイレクト
-app.get("/artifact/item/create/:set_id", (req, res) => {
-  res.redirect('/public/artifact_new.html');
+// 聖遺物一覧表示
+app.get("/artifact/set/:set_id", (req, res) => {
+  const set_id = req.params.set_id;
+  const set_name = artifact_set.find(s => s.set_id == set_id).set_name;
+  const targetId = Number(set_id);
+  const artifacts_in_set = artifact.filter(a => a.set_id == targetId);
+  res.render('artifact_set', { set_id: set_id, set_name: set_name, data: artifacts_in_set });
 });
 
-// 聖遺物新規作成処理
-app.post("/artifact/item_add", (req, res) => {
-  const id = artifact.length > 0
+//  聖遺物部位追加画面
+app.get("/artifact/item_create/:set_id", (req, res) => {
+  const set_id = req.params.set_id;
+  const set_name = artifact_set.find(s => s.set_id == set_id).set_name;
+  res.render('artifact_item_new', { set_id: set_id, set_name: set_name });
+});
+
+// 聖遺物部位新規作成処理
+app.post("/artifact/item_add/:set_id", (req, res) => {
+  const set_id = req.params.set_id;
+  const artifact_id = artifact.length > 0
     ? Math.max(...artifact.map(a => a.artifact_id)) + 1
     : 1;
-  const set_name = req.body.set_name;
   const slot = req.body.slot;
   const main_stat = req.body.main_stat;
   const main_stat_value = req.body.main_stat_value;
@@ -436,26 +442,35 @@ app.post("/artifact/item_add", (req, res) => {
   const sub_stat4 = req.body.sub_stat4;
   const sub_stat4_value = req.body.sub_stat4_value;
   const score = req.body.score;
-  let newdata = { artifact_id: id, set_name: set_name, slot: slot, main_stat: main_stat, main_stat_value: main_stat_value, sub_stat1: sub_stat1, sub_stat1_value: sub_stat1_value, sub_stat2: sub_stat2, sub_stat2_value: sub_stat2_value, sub_stat3: sub_stat3, sub_stat3_value: sub_stat3_value, sub_stat4: sub_stat4, sub_stat4_value: sub_stat4_value, score: score };
+  let newdata = { artifact_id: artifact_id, set_id: set_id, slot: slot, main_stat: main_stat, main_stat_value: main_stat_value, sub_stat1: sub_stat1, sub_stat1_value: sub_stat1_value, sub_stat2: sub_stat2, sub_stat2_value: sub_stat2_value, sub_stat3: sub_stat3, sub_stat3_value: sub_stat3_value, sub_stat4: sub_stat4, sub_stat4_value: sub_stat4_value, score: score };
   artifact.push(newdata);
-  res.redirect('/artifact');
+  res.redirect('/artifact/set/' + set_id);
 });
 
-// 聖遺物編集ページ表示
+// 聖遺物部位詳細表示
+app.get("/artifact/item/:id", (req, res) => {
+  const id = req.params.id;
+  const detail = artifact.find(a => a.artifact_id == id);
+  const set_id = detail.set_id;
+  const set_name = artifact_set.find(s => s.set_id == set_id).set_name;
+  const slot = detail.slot;
+  res.render('artifact_set_detail', {set_name: set_name, slot: slot, data: detail });
+});
+
+// 聖遺物部位編集ページ表示
 app.get("/artifact/item/edit/:id", (req, res) => {
   const id = req.params.id;
   const detail = artifact.find(a => a.artifact_id == id);
-  res.render('artifact_edit', { data: detail });
+  res.render('artifact_item_edit', { data: detail });
 });
 
-// 聖遺物更新処理
+// 聖遺物部位更新処理
 app.post("/artifact/item_update/:id", (req, res) => {
   const id = req.params.id;
   const art = artifact.find(a => a.artifact_id == id);
   if(!art) {
     return res.redirect('/artifact');
   }
-  art.set_name = req.body.set_name;
   art.slot = req.body.slot;
   art.main_stat = req.body.main_stat;
   art.main_stat_value = req.body.main_stat_value;
@@ -468,15 +483,19 @@ app.post("/artifact/item_update/:id", (req, res) => {
   art.sub_stat4 = req.body.sub_stat4;
   art.sub_stat4_value = req.body.sub_stat4_value;
   art.score = req.body.score;
-  res.redirect('/artifact/'+id);
+  res.redirect('/artifact/item/' + id);
 });
 
-// 聖遺物削除処理
+// 聖遺物部位削除処理
 app.post("/artifact/item_delete/:id", (req, res) => {
   const id = req.params.id;
+  const art = artifact.find(a => a.artifact_id == id);
+  if(!art) {
+    return res.redirect('/artifact');
+  }
+  const set_id = art.set_id;
   artifact = artifact.filter(a => a.artifact_id != id);
-  res.redirect('/artifact');
+  res.redirect('/artifact/set/' + set_id);
 });
-
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
