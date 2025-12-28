@@ -1,0 +1,20 @@
+digraph CharacterManagement {
+    rankdir=LR;
+    node [shape=box, style="rounded,filled", fillcolor="#E8F4F8", fontname="Arial"];
+    edge [fontname="Arial", fontsize=10];
+
+    LIST [label="一覧\n(GET /chara)"];
+    NEW [label="新規登録画面\n(GET /chara/create)"];
+    DETAIL [label="詳細表示\n(GET /chara/:id)"];
+    EDIT [label="編集画面\n(GET /chara/edit/:id)"];
+
+    LIST -> NEW [label="新規追加\nボタン"];
+    NEW -> LIST [label="登録処理\n(POST /chara_add)"];
+
+    LIST -> DETAIL [label="キャラ名\nをクリック"];
+    DETAIL -> EDIT [label="編集\nボタン"];
+    EDIT -> DETAIL [label="更新処理\n(POST /chara_update/:id)"];
+
+    DETAIL -> LIST [label="削除処理\n(POST /chara_delete/:id)"];
+    DETAIL -> LIST [label="戻る"];
+}
